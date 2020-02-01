@@ -5,9 +5,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.ArgumentCaptor;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import java.util.Arrays;
@@ -25,12 +23,14 @@ public class TodoBusinessImplMockTest {
     @Mock
     private List<String> booksMock;
 
-    private TodoBusinessImpl todoBusiness;
+    @Captor
+    ArgumentCaptor<String> stringArgumentCaptor;
+
+    @InjectMocks
+    private TodoBusinessImpl underTest;
 
     @Before
     public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        todoBusiness = new TodoBusinessImpl(todoServiceMock);
     }
 
     @After
@@ -44,7 +44,7 @@ public class TodoBusinessImplMockTest {
         doReturn(books).when(todoServiceMock).retrieveTodos("dummy");
 
         //Act
-        List<String> retrievedBooks = todoBusiness.retrieveTodosRelatedToSpring("dummy");
+        List<String> retrievedBooks = underTest.retrieveTodosRelatedToSpring("dummy");
 
         // Asserts
         verify(todoServiceMock, times(1)).retrieveTodos("dummy");
@@ -53,16 +53,13 @@ public class TodoBusinessImplMockTest {
 
     @Test
     public void retrieveTodosRelatedToSpring_verify() {
-        doNothing().when(todoServiceMock).deleteTodo("Book");
-
-        todoBusiness.deleteTodosNotRelatedToSpring("Book");
+        underTest.deleteTodosNotRelatedToSpring("Book");
 
         verify(todoServiceMock, never()).deleteTodo("Book");
     }
 
     @Test
     public void retrieveTodosRelatedToSpring_usingArgumentCapture() {
-        ArgumentCaptor<String> stringArgumentCaptor = ArgumentCaptor.forClass(String.class);
     }
 
     @Test
