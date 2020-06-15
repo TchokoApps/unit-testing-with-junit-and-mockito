@@ -17,7 +17,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <spring-boot.version>2.0.4.RELEASE</spring-boot.version>
-        <spring-framework.version>5.0.8.RELEASE</spring-framework.version>
+        <spring-framework.version>5.2.7.RELEASE</spring-framework.version>
         <spring-data.version>2.1.0.RELEASE</spring-data.version>
         <guava.version>19.0</guava.version>
         <powermock.version>2.0.2</powermock.version>
